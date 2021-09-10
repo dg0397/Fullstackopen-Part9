@@ -16,7 +16,7 @@ const parseArgumentsToCalculateBmi = (args: Array<string>): calculateBmiValues =
       throw new Error('Provided values were not numbers!');
     }
 }
-const calculateBmi = (heigth:number,weight:number): Result => {
+export const calculateBmi = (heigth:number,weight:number): Result => {
     if(heigth === 0) throw new Error(`Height must be greater than 0!`)
     const bmi = (weight/((heigth/100)**2))
     let result : Result;
