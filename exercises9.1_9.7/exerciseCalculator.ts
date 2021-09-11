@@ -27,7 +27,7 @@ const parseArgumentsToexerciseCalculator = (args: Array<string>): exerciseCalcul
     }
 };
 
-const exerciseCalculator = ( dailyExercisesHours:Array<number>, target: number) : ResultObj => {
+export const exerciseCalculator = ( dailyExercisesHours:Array<number>, target: number) : ResultObj => {
     const periodLength = dailyExercisesHours.length;
 
     if(periodLength < 1) throw new Error(`The period of days must be greather than 1`);
