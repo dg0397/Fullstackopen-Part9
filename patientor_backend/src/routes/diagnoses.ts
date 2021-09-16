@@ -7,4 +7,14 @@ router.get('/',(_req,res) => {
     res.send(diagnoseService.getEntries());
 });
 
+router.get('/:id',(req,res) => {
+    const diagnose = diagnoseService.findById(req.params.id);
+
+    if(diagnose){
+        res.send(diagnose);
+    }else{
+        res.sendStatus(404);
+    }
+});
+
 export default router;
