@@ -28,7 +28,7 @@ export type Fields = {
     occupation : unknown
 };
 
-type BaseEntry = {
+export type BaseEntry = {
     id: string;
     description: string;
     date: string;
@@ -44,27 +44,37 @@ export enum HealthCheckRating {
     "CriticalRisk" = 3
 }
 
-type DischargeType = {
+export type DischargeType = {
     date: string,
     criteria: string
 };
 
-type SickLeave = {
+export type DischargeFields = {
+    date : unknown,
+    criteria: unknown
+};
+
+export type SickLeave = {
     startDate: string;
     endDate: string
 };
 
-interface HealthCheckEntry extends BaseEntry {
+export type SickLeaveFields = {
+    startDate: unknown;
+    endDate: unknown
+};
+
+export interface HealthCheckEntry extends BaseEntry {
     type: 'HealthCheck';
     healthCheckRating: HealthCheckRating;
 }
 
-interface HospitalEntry extends BaseEntry {
+export interface HospitalEntry extends BaseEntry {
     type: 'Hospital';
     discharge: DischargeType;
 }
 
-interface OccupationalHealthcareEntry extends BaseEntry {
+export interface OccupationalHealthcareEntry extends BaseEntry {
     type: 'OccupationalHealthcare';
     employerName: string;
     sickLeave?: SickLeave; 
@@ -78,3 +88,37 @@ export type Entry =
 export type NewPatientEntry = Omit<PatientEntry, 'id' | 'entries'>;
 
 export type PublicPatient  = Omit<PatientEntry,'ssn' | 'entries'>;
+
+// Define special omit for unions
+type UnionOmit<T, K extends string | number | symbol> = T extends unknown ? Omit<T, K> : never;
+// Define Entry without the 'id' property
+export type EntryWithoutId = UnionOmit<Entry, 'id'>;
+
+type EntryBaseFields = {
+    description: unknown,
+    date: unknown,
+    specialist: unknown,
+    diagnosisCodes?: unknown,
+    type: unknown
+};
+
+interface HealthCheckEntryFields extends EntryBaseFields {
+    type: 'HealthCheck';
+    healthCheckRating: unknown;
+}
+
+interface HospitalEntryFields extends EntryBaseFields {
+    type: 'Hospital';
+    discharge: unknown;
+}
+
+interface OccupationalHealthcareEntryFields extends EntryBaseFields {
+    type: 'OccupationalHealthcare';
+    employerName: unknown;
+    sickLeave?: unknown; 
+}
+
+export type EntryFields =
+  | HospitalEntryFields
+  | OccupationalHealthcareEntryFields
+  | HealthCheckEntryFields;
