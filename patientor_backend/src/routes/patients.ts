@@ -25,7 +25,7 @@ router.post('/',(req,res) => {
     const newPatient = patientService.addPatient(newPatientEntry);
 
     res.json(newPatient);
-    } catch (error) {
+    } catch (error : unknown) {
         if(error instanceof Error){
             res.status(400).send(error.message);
         }
@@ -39,7 +39,7 @@ router.post('/:id/entries',(req,res) => {
             const newEntryData = toNewEntryData(req.body);
             const newEntry = patientService.addEntry({entry:newEntryData,patient});
             res.json(newEntry);
-        } catch (error) {
+        } catch (error:unknown) {
             if(error instanceof Error){
                 res.status(400).send(error.message);
             }
