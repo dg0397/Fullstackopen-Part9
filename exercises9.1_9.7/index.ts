@@ -56,7 +56,7 @@ app.post('/exercises',(req,res) => {
             
             const result = exerciseCalculator(daylyHours,targetHour);
             res.json(result);
-        } catch (error) {
+        } catch (error : unknown) {
             if(error instanceof Error){
                 console.log("Something went wrong, error message: ",error.message);
                 res.status(400).json({

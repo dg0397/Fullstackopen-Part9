@@ -17,7 +17,8 @@ const parseArgumentsToCalculateBmi = (args: Array<string>): calculateBmiValues =
     }
 };
 export const calculateBmi = (heigth:number,weight:number): Result => {
-    if(heigth === 0) throw new Error(`Height must be greater than 0!`);
+    if(heigth < 1) throw new Error(`Height must be greater than 0!`);
+    if(weight < 1) throw new Error(`Weight must be greater than 0!`);
     const bmi = (weight/((heigth/100)**2));
     let result : Result;
     
@@ -44,7 +45,7 @@ export const calculateBmi = (heigth:number,weight:number): Result => {
 try {
     const {heigth,weight} = parseArgumentsToCalculateBmi(process.argv);
     console.log(calculateBmi(heigth, weight));
-} catch (error) {
+} catch (error: unknown) {
     if(error instanceof Error){
         console.log("Something went wrong, error message: ",error.message);
     }

@@ -53,7 +53,7 @@ export const exerciseCalculator = ( dailyExercisesHours:Array<number>, target: n
 try {
     const {target,dailyExercisesHours} = parseArgumentsToexerciseCalculator(process.argv);
     console.log(exerciseCalculator(dailyExercisesHours,target));    
-} catch (error) {
+} catch (error:unknown) {
     if(error instanceof Error){
         console.log("Something went wrong, error message: ",error.message);
     }
