@@ -156,7 +156,7 @@ const parseTypeOccupationalHealthcare = (type:string): "OccupationalHealthcare" 
 };
 
 const parseHealthCheckRating = (healthCheckRating : unknown) : HealthCheckRating => {
-    if(!healthCheckRating || !isHealthCheckRating(healthCheckRating)){
+    if(!(typeof healthCheckRating === 'number') || !isHealthCheckRating(healthCheckRating)){
         throw new Error('Incorrect or missing healthCheckRating: ' + JSON.stringify(healthCheckRating));
     }
     return healthCheckRating;
